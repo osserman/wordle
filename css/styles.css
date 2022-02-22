@@ -1,0 +1,132 @@
+* {
+    --color-right: 106, 170, 100;
+    --color-wrong: #787c7e; 
+    --color-somewhere: #c9b458;
+    --letter-font-size: 2rem;
+    --header-height: 7rem; 
+
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+
+}
+
+html {
+    background-color: rgba(var(--color-right),0.2);
+}
+p {
+    font-size: 1.25rem;
+    line-height: 1.4;
+    margin-bottom: 0.3rem;
+}
+
+button {
+    background-color: var(--color-wrong);
+    color: white; 
+    font-family: 'Clear Sans', 'Helvetica Neue', Arial, sans-serif;
+    font-size: 1.2rem;
+    font-weight: bold;
+    padding: 5px;
+}
+
+details {
+    padding:10px 0px;
+    font-size: 1.25rem;
+}
+details p,li {
+    font-size: 1.1rem;
+}
+header { 
+    text-align: center;
+    background-color: white;
+    height: var(--header-height);
+    padding: 20px;
+    /* border-bottom: 1px solid rgba(var(--color-right),0.7);*/ 
+    box-shadow: 0px 1px 5px rgba(var(--color-right),0.8);
+}
+header h1 {
+    font-size: 4rem;
+    font-family: 'Redressed', cursive;
+}
+ol,ul {
+    margin-left: 2rem;
+}
+li {
+    margin-bottom: 0.5rem;
+}
+ol.no-list-style {
+    list-style: none;
+    margin-left: 1rem;
+}
+ol.no-list-style li {
+    margin-bottom: 0.1rem;
+}
+
+section#main {
+    width: clamp(700px, 65%, 900px);
+    max-width: 95%;
+    margin: 0px auto;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    display: flex;
+    min-height: 70vh;
+    gap: 40px;
+}
+
+section#main h2 {
+    font-size: 2rem;
+    padding-bottom: 20px;
+}
+
+#intro {
+    flex: 1;
+    min-width: 300px;
+}
+
+#chart-wrapper { 
+    background-color: white;
+    padding: 25px 15px 30px;
+    width: fit-content;
+    border-radius: 20px;
+    box-shadow: 0px 0px 5px rgba(var(--color-right),0.8);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    background-color: white;
+    max-height: 60vh;
+    white-space: nowrap;
+}
+
+.letter {
+    position: relative;
+    background-color: white;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(1.75 * var(--letter-font-size));
+    min-width: calc(1.75 * var(--letter-font-size));
+    margin: calc(var(--letter-font-size) * 2 / 16 );
+    text-align: center;
+    border: 2px solid #d3d6da;
+    text-transform: uppercase ;
+    font-weight: bold;
+    font-size: var(--letter-font-size);
+    color: white;
+    font-family: 'Clear Sans', 'Helvetica Neue', Arial, sans-serif
+}
+
+@media (max-width: 600px) {
+    * {
+        --letter-font-size: 1.5rem;
+    }
+
+    header h1 { 
+        font-size: 3rem;
+    }
+
+    section#main h2 {
+        font-size: 1.75rem;
+        padding-bottom: 15px;
+    }
+}

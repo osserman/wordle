@@ -1,0 +1,47 @@
+
+
+#chart-wrapper { 
+    max-height: calc(100vh - var(--header-height));
+    width:  400px;
+    max-width: 100%;
+    position: relative;
+    height: 520px;
+}
+
+#background-svg-div, #foreground-svg-div {
+    position: absolute;
+    bottom: -4px;
+    left:0;
+    right:0;
+    margin: 0 auto;
+}
+
+
+#words-wrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+#words-wrapper span.letter {
+    --letter-font-size: clamp(1.2rem, 1.2vw, 2rem);
+} 
+
+#words{
+    max-width: 200px;
+    text-align: center;
+}
+svg text {
+    text-anchor:middle;
+    font-weight:bold; 
+
+}
+
+@media (max-width: 600px) {
+    section#main {
+        flex-direction: column;
+        align-items: center;
+    }
+}

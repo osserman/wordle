@@ -1,0 +1,38 @@
+section#main{ 
+    flex-direction: column;
+    min-height: auto;
+    width: clamp(300px, 90%, 1200px);
+    align-items: center;
+}
+#intro{ 
+    width: clamp(300px, 65%, 800px);
+}
+#chart-wrapper {
+    max-width: 100%;
+}
+
+#buttons { 
+    align-self: flex-start;
+    white-space: normal;
+}
+
+#freqChart {
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    width: 100%;
+    overflow: auto; 
+  }
+#letterBars, #letterMarkers {
+    display: flex; 
+    align-items: flex-end; 
+  }
+#letterBars {
+    height: 100px;
+  }
+#freqChart span.letter {
+    --letter-font-size: clamp(1.2rem, 1.2vw, 2rem);
+} 
+#freqChart #letterBars span {
+    min-height: 0rem;
+    border:none;
+  }

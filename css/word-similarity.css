@@ -1,0 +1,40 @@
+
+#word-selection { 
+    padding: 10px 0;
+}
+
+#word-selection button {
+    letter-spacing: 0.15rem;
+}
+
+#word-selection button#pick-your-own,button#random-word {
+    margin: 30px 10px 0px 0px;
+    font-size: 1rem;
+    letter-spacing: revert;
+}
+
+#word-input {
+    display: none;
+    margin-top: 10px;
+    font-size: 1.5rem;
+    width: 8rem;
+    padding: 5px;
+    text-align: center;
+}
+
+#current-word, #sim-words{
+    /* max-width: 200px; */
+    text-align: center;
+    padding: 0 15px; /* this leaves space for scroll bar while keeping width of both elements same for when there are no similar words */
+}
+
+#sim-words{
+    overflow-y: auto;
+}
+
+@media (max-width: 600px) {
+    section#main {
+        flex-direction: column;
+        align-items: center;
+    }
+}
