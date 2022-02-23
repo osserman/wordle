@@ -3,6 +3,7 @@
 #chart-wrapper { 
     max-height: calc(100vh - var(--header-height));
     width:  400px;
+    min-width: 400px;
     max-width: 100%;
     position: relative;
     height: 520px;
@@ -15,8 +16,10 @@
     right:0;
     margin: 0 auto;
 
-    width: 100%;
-    aspect-ratio: 1;
+    /* width: 100%;
+    aspect-ratio: 1;*/
+    min-width: 400px;
+    min-height: 400px;
     position: absolute;
     bottom: -60px;
     border-radius: 50%;
@@ -44,6 +47,15 @@
     font-weight:bold;
 }
 
+.green {
+    color: rgb(var(--color-right));
+    font-weight: bold;
+}
+
+.orange {
+    color: #f5793a;
+    font-weight: bold;
+}
 
 #words-wrapper {
     flex: 1;
@@ -58,13 +70,7 @@
 } 
 
 #words{
-    /* max-width: 200px;*/ 
     text-align: center;
-}
-svg text {
-    text-anchor:middle;
-    font-weight:bold; 
-
 }
 
 @media (max-width: 600px) {
@@ -78,5 +84,8 @@ svg text {
         gap: 3px;
         margin-top: 30px;
     }
-    
+    #chart-wrapper { 
+        width: 100%;
+    }
+
 }

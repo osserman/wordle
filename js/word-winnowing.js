@@ -20,7 +20,7 @@ const wordsElimCount = d3.select('#words-eliminated')
 
 d3.json("./data/wordSets.json").then((data) => {
     let wordSets = new Map(data);
-
+    let justStarting = 1;
     function game() { 
         let wordSet = wordSets.get('common').words
 //    console.log(wordSets.get('common').words)
@@ -31,7 +31,16 @@ d3.json("./data/wordSets.json").then((data) => {
             .range([0, 1]);
 
         actualWord.html("Actual Word: <b>" + gameResults.actualWord.toUpperCase() + "</b>")
-        nextWord.text('REVEAL NEXT GUESS'); 
+        
+        if (justStarting == 1){
+            console.log('justStarting')
+            justStarting = 0;
+        } else {
+            console.log('startedBefore')
+
+            nextWord.text('GET STARTED'); 
+        }
+
         d3.select('#foreground').transition().style('transform','scale(1)')
         words.each(function (d,i) {
             d3.select(this).selectAll('span')
@@ -55,18 +64,21 @@ d3.json("./data/wordSets.json").then((data) => {
         let guessCount = 0; 
         nextWord.on('click', () => {
             const col = wordComp(gameResults.guesses[guessCount], gameResults.actualWord)
+                console.log('guessCount5 or', guessCount, gameResults.guesses[guessCount] == gameResults.actualWord )
+
                 if(guessCount==5 || gameResults.guesses[guessCount] == gameResults.actualWord) {
+                    console.log("changing to replay")
                 nextWord.text('REPLAY'); 
+                } else {
+                    nextWord.text('SHOW NEXT GUESS'); 
                 }
                 if(guessCount == 6 || gameResults.guesses[guessCount-1] == gameResults.actualWord){
+                    console.log("resetting")
                 guessCount=-1; 
                 wordsWrapper.selectAll('span')
                     .style('background-color', '#FFFFFFAA')
                     .style('color', (d,i)=> '#FFFFFF00')
-                    .style('border-color', '#CCC');
-            
-                nextWord.text('REVEAL NEXT GUESS'); 
-            
+                    .style('border-color', '#CCC');            
                 } 
                 if(guessCount!=-1){
                 wordsWrapper.selectAll('#guess-' + guessCount + ' span').style('color', (d,i)=> '#FFFFFF')
@@ -74,6 +86,7 @@ d3.json("./data/wordSets.json").then((data) => {
             nextWord
                 }
                 guessCount++;
+                 
                 let wordsLeftNow = gameResults.wordsLeftByRound[guessCount] || 1
                 let scaleCircleBy = circleScale(wordsLeftNow)
                 d3.select('#foreground')
