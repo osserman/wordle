@@ -6,14 +6,42 @@
     max-width: 100%;
     position: relative;
     height: 520px;
+    overflow: hidden;
 }
 
-#background-svg-div, #foreground-svg-div {
+.word-circle {
     position: absolute;
-    bottom: -4px;
     left:0;
     right:0;
     margin: 0 auto;
+
+    width: 100%;
+    aspect-ratio: 1;
+    position: absolute;
+    bottom: -60px;
+    border-radius: 50%;
+    transform: scale(1);
+}
+.word-circle#background {
+    background-color: #f5793a;
+} 
+.word-circle#foreground {
+    background-color: rgb(var(--color-right));
+}
+
+#controls{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 10px;
+}
+
+.circle-annotation{
+    position:absolute;
+    bottom: 5px;   
+    color: white;   
+    font-size: 1.1rem;
+    font-weight:bold;
 }
 
 
@@ -26,11 +54,11 @@
 }
 
 #words-wrapper span.letter {
-    --letter-font-size: clamp(1.2rem, 1.2vw, 2rem);
+    --letter-font-size: clamp(1.2rem, 1.5rem, 1.5rem);
 } 
 
 #words{
-    max-width: 200px;
+    /* max-width: 200px;*/ 
     text-align: center;
 }
 svg text {
@@ -44,4 +72,11 @@ svg text {
         flex-direction: column;
         align-items: center;
     }
+    #controls{
+        flex-direction: row;
+        justify-content: space-between;
+        gap: 3px;
+        margin-top: 30px;
+    }
+    
 }

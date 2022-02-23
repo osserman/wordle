@@ -77,6 +77,10 @@ d3.json("./data/letterFrequencies.json").then((data) => {
   resetButton.on('click', initialize) 
 
   showAllButton.on('click', () => {
+    barsRow
+      .transition()
+        .style('height', barCellHeight + 'px')
+        
     bars
       .transition()
         .style('height', (d) =>  barHeightScale(d[1]) + 'px')

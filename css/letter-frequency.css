@@ -9,6 +9,7 @@ section#main{
 }
 #chart-wrapper {
     max-width: 100%;
+    min-height: auto;
 }
 
 #buttons { 
@@ -27,7 +28,7 @@ section#main{
     align-items: flex-end; 
   }
 #letterBars {
-    height: 100px;
+    height: 40px;
   }
 #freqChart span.letter {
     --letter-font-size: clamp(1.2rem, 1.2vw, 2rem);

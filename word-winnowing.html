@@ -29,48 +29,49 @@
                 <button id='reset-game'>NEW GAME</button>
             </section>
 
-            <details>
-                <summary>Word selection process</summary>
-                <p>In these games, each guess is chosen randomly from all the possible remaining words that meet the criteria already learned (i.e. letters excluded, letters included and letter position/non-position).</p>
-                <p>I'm not saying this is the optimal approach to playing Wordle, but an interesting one to look at none the less.</p>
-            </details>
-
-            <details>
-                <summary>A note on the set of words being considered</summary>
-                <p>There are three different sets of words I considered using. </p>
-                <ol>
-                    <li>Wordle's <strong>actual</strong> answers. This is the set of 2315 words that Wordle selects their answers from.</li>
-                    <li><strong>Common</strong> 5-letter English words. These are the 4561 most common 5-letter words from the <a href="https://pypi.org/project/wordfreq/" target="_blank">WordFreq</a> dataset that are also considered valid entries by Wordle. The cutoff of 4561 words was choosen because it's the number of words which includes 95% of the Wordle's actual answers. Beyond that words get pretty obscure.</li>
-                    <li><strong>All</strong> Wordle words. This set includes all 12972 5-letter words that Wordle accepts as a guess, most of which are really quite obscure.</li>
-                </ol>
-                <p>This page defaults to "Common" words, because using Wordle's actual answers is kind of cheating, and because using all 13K 5-letter words includes a bunch of words that only scrabble fanatics know about. </p>
-            </details>
-            <section id = "more-explorations"> 
-                <h3>More Wordle Explorations</h3>
-                <ul>
-                    <!-- <li><a href='#'>Word Winnowing</a></li> -->
-                    <li><a href='#'>Check your game</a></li>
-                    <li><a href='#'>Word Similarity</a></li>
-                    <li><a href='#'>Letter Frequencies</a></li>
-                    <li><a href='#'>Simulations</a></li>
-                </ul>
-            </section>
         </section>
         <section id = 'chart-wrapper'>
-            <div id='background-svg-div'>
-                <svg id='background-svg'></svg>
-            </div>
+            <div class = 'word-circle' id = 'background'></div>
             <div id='words-wrapper'>
                 <div id='actual-word'></div>
                 <div id='words'></div>
             </div>
-            <div id='foreground-svg-div'>
-                <svg id = 'foreground-svg'></svg>
+            <div class = 'word-circle'  id = 'foreground'></div>
+            <div class='circle-annotation' id='words-left'></div>
+            <div class='circle-annotation' id='words-eliminated'></div>
             </div>
-            <div id='sim-words'></div>
 
         </section>
     </section>    
+    <section id='more-details'>
+        <h2>Details and More</h2>
+        <details>
+            <summary>Word selection process</summary>
+            <p>In these games, each guess is chosen randomly from all the possible remaining words that meet the criteria already learned (i.e. letters excluded, letters included and letter position/non-position).</p>
+            <p>I'm not saying this is the optimal approach to playing Wordle, but an interesting one to look at none the less.</p>
+        </details>
+
+        <details>
+            <summary>A note on the set of words being considered</summary>
+            <p>There are three different sets of words I considered using. </p>
+            <ol>
+                <li>Wordle's <strong>actual</strong> answers. This is the set of 2315 words that Wordle selects their answers from.</li>
+                <li><strong>Common</strong> 5-letter English words. These are the 4561 most common 5-letter words from the <a href="https://pypi.org/project/wordfreq/" target="_blank">WordFreq</a> dataset that are also considered valid entries by Wordle. The cutoff of 4561 words was choosen because it's the number of words which includes 95% of the Wordle's actual answers. Beyond that words get pretty obscure.</li>
+                <li><strong>All</strong> Wordle words. This set includes all 12972 5-letter words that Wordle accepts as a guess, most of which are really quite obscure.</li>
+            </ol>
+            <p>This page defaults to "Common" words, because using Wordle's actual answers is kind of cheating, and because using all 13K 5-letter words includes a bunch of words that only scrabble fanatics know about. </p>
+        </details>
+        <section id = "more-explorations"> 
+            <h3>More Wordle Explorations</h3>
+            <ul>
+                <!--<li><a href=''>Check your game</a></li>
+                    <li><a href='#'>Simulations</a></li>--> 
+                <!--<li><a href='word-winnowing.html'>Word Winnowing</a></li> -->
+                <li><a href='word-similarity.html'>Word Similarity</a></li>
+                <li><a href='letter-frequency.html'>Letter Frequencies</a></li>
+            </ul>
+        </section>
+    </section>
 
 </body>
 <script src="https://use.fontawesome.com/2ff120d54e.js"></script>

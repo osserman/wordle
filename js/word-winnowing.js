@@ -2,11 +2,7 @@ import {colors, randomAnswer, wordSim, wordComp, playFullGame} from './functions
 
 const chartWrapper = d3.select('#chart-wrapper')
 
-const backgroundSvgDiv = d3.select('#background-svg-div')
-
 const wordsWrapper = d3.select('#words-wrapper')
-
-const foregroundSvgDiv = d3.select('#foreground-svg-div')
 
 const actualWord = d3.select('#actual-word')
     .style('text-align','center')
@@ -19,35 +15,8 @@ const words = d3.select('#words')
     .data(d3.range(6))  
     .join('div').attr('id', (d,i)=> 'guess-' + i)
     
-const backgroundSvg = d3.select('#background-svg')
-    .attr('width', '100%')
-    .attr('height', '270px')
-    .attr('alt','circles showing how many words total')
-    
-const foregroundSvg = d3.select('#foreground-svg')
-    .attr('width', '100%')
-    .attr('height', '270px')
-    .attr('alt','circles showing how many words left after each round')
-
-const wordsEliminated = backgroundSvg
-    .append('circle')
-    .attr('cy','60%').attr('cx','50%').attr('fill','#f5793a')
-const wordsLeft = foregroundSvg
-    .append('circle')
-    .attr('cy','60%').attr('cx','50%').attr('fill','#6aaa63')
-const wordsLeftCount = foregroundSvg
-    .append('text')
-    .attr('y','70%')
-    .attr('x','50%')
-    .attr('fill','black')
-    .attr('fill','white')
-const wordsElimCount = foregroundSvg
-    .append('text')
-    .attr('y','95%')
-    .attr('x','50%')
-    .attr('fill','black')
-    .attr('fill','white')
-    .attr('opacity',0)
+const wordsLeftCount = d3.select('#words-left')
+const wordsElimCount = d3.select('#words-eliminated')
 
 d3.json("./data/wordSets.json").then((data) => {
     let wordSets = new Map(data);
@@ -59,11 +28,11 @@ d3.json("./data/wordSets.json").then((data) => {
         
         let circleScale = d3.scaleSqrt()
             .domain([0, wordSet.length])
-            .range([0, 180]);
+            .range([0, 1]);
 
         actualWord.html("Actual Word: <b>" + gameResults.actualWord.toUpperCase() + "</b>")
         nextWord.text('REVEAL NEXT GUESS'); 
-
+        d3.select('#foreground').transition().style('transform','scale(1)')
         words.each(function (d,i) {
             d3.select(this).selectAll('span')
             .data(gameResults.guesses[i] != undefined ? gameResults.guesses[i].split('') : gameResults.actualWord.split(''))//d3.range(5).map(()=> ''))
@@ -75,9 +44,11 @@ d3.json("./data/wordSets.json").then((data) => {
             .style('border-color', '#CCC');
             })
 
-        wordsEliminated.attr('r', circleScale(gameResults.wordsLeftByRound[0]))
-        wordsLeft.attr('r', circleScale(gameResults.wordsLeftByRound[0]))
-        wordsLeftCount.text(gameResults.wordsLeftByRound[0] + ' Possible Words')
+        //wordsEliminated.attr('r', circleScale(gameResults.wordsLeftByRound[0]))
+        //wordsLeft.attr('r', circleScale(gameResults.wordsLeftByRound[0]))
+        wordsLeftCount
+            .text(gameResults.wordsLeftByRound[0] + ' Possible Words')
+            .style('bottom','5px')
         wordsElimCount.text('0 Words Eliminated').style('opacity',0)
 
         
@@ -103,9 +74,20 @@ d3.json("./data/wordSets.json").then((data) => {
             nextWord
                 }
                 guessCount++;
-                wordsLeft.transition().attr('r', 0.8 * circleScale(gameResults.wordsLeftByRound[guessCount] || 1 ))
-                wordsLeftCount.text((gameResults.wordsLeftByRound[guessCount] || 1) + ' Possible Words')
-                wordsElimCount.text((gameResults.wordsLeftByRound[0] - (gameResults.wordsLeftByRound[guessCount] || 1)) + ' Words Eliminated')
+                let wordsLeftNow = gameResults.wordsLeftByRound[guessCount] || 1
+                let scaleCircleBy = circleScale(wordsLeftNow)
+                d3.select('#foreground')
+                    .transition()
+                    .style('transform','scale('+ scaleCircleBy +')')
+                
+                let textBottomOffset =  ((1-scaleCircleBy) * d3.select('#chart-wrapper').node().offsetWidth/2 - 60) - 20;
+                wordsLeftCount
+                    .text(wordsLeftNow + ' Possible Word' + (wordsLeftNow>1 ? 's' :''))
+                    .transition()
+                    .style('bottom',  d3.max([25,textBottomOffset]) + 'px') // make sure it doesn't go negative
+                    
+        
+                wordsElimCount.text((gameResults.wordsLeftByRound[0] - (wordsLeftNow)) + ' Words Eliminated')
                     .style('opacity', (guessCount==0 ? 0 : 1))
             
             })
@@ -113,5 +95,4 @@ d3.json("./data/wordSets.json").then((data) => {
 
     game()
     resetGame.on('click', game)
-    
 })

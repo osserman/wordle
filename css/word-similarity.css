@@ -8,7 +8,7 @@
 }
 
 #word-selection button#pick-your-own,button#random-word {
-    margin: 30px 10px 0px 0px;
+    margin: 20px 10px 0px 0px;
     font-size: 1rem;
     letter-spacing: revert;
 }
@@ -36,5 +36,8 @@
     section#main {
         flex-direction: column;
         align-items: center;
+    }
+    #word-selection { 
+        text-align: center;
     }
 }
