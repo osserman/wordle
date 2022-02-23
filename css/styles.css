@@ -17,7 +17,7 @@ html {
 p {
     font-size: 1.25rem;
     line-height: 1.4;
-    margin-bottom: 0.3rem;
+    margin-bottom: 0.7rem;
 }
 
 button {
@@ -36,6 +36,14 @@ details {
 details p,li {
     font-size: 1.1rem;
 }
+details p {
+    margin-top: 15px;
+}
+
+#more-explorations {
+    padding: 15px 0px 30px;
+}
+
 header { 
     text-align: center;
     background-color: white;
@@ -72,9 +80,9 @@ section#main {
     gap: 40px;
 }
 
-section#main h2 {
+h2 {
     font-size: 2rem;
-    padding-bottom: 20px;
+    padding-bottom: 10px;
 }
 
 section#more-details{
@@ -133,7 +141,7 @@ section#more-details{
         font-size: 3rem;
     }
 
-    section#main h2 {
+    h2 {
         font-size: 1.75rem;
         padding-bottom: 15px;
     }
