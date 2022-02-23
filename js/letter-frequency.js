@@ -8,6 +8,7 @@ const resetButton = d3.select('#reset')
 const reorderButton = d3.select('#reorder')
 
 let wordSetName = 'common';
+let showingAllFrequencies = 0; 
 const barCellHeight = 100;
 let curData, letterOrder, top5letters, letterCountDomain, barHeightScale, colorScale, curOrder, bars, letters;
 
@@ -16,8 +17,10 @@ d3.json("./data/letterFrequencies.json").then((data) => {
   const wordSetStats = new Map(data.map(d=> [d[0], {...d[1], letterCounts: (new Map(d[1].letterCounts)) }]));
 
   function initialize(){ 
+    showingAllFrequencies = 0;
+
     curData = wordSetStats.get(wordSetName);
-    //  console.log(curData, curData.letterCounts)
+
     letterOrder = 
     Array.from(curData.letterCounts)
         .map(d=> ({letter: d[0], count: d[1]}))
@@ -59,10 +62,12 @@ d3.json("./data/letterFrequencies.json").then((data) => {
       .style('color', "black")
       .style('order',0)
       .on('click', function(event, d) {
-        d3.select(this)
-          .style('background-color', top5letters.indexOf(d[0]) != -1 ?  colors.right : colors.wrong)
-          .style('border-color', top5letters.indexOf(d[0]) != -1 ?  colors.right : colors.wrong)
-          .style('color','white')
+        if (showingAllFrequencies == 0){
+            d3.select(this)
+            .style('background-color', top5letters.indexOf(d[0]) != -1 ?  colors.right : colors.wrong)
+            .style('border-color', top5letters.indexOf(d[0]) != -1 ?  colors.right : colors.wrong)
+            .style('color','white')
+            }
       })
     
     reorderButton
@@ -77,10 +82,11 @@ d3.json("./data/letterFrequencies.json").then((data) => {
   resetButton.on('click', initialize) 
 
   showAllButton.on('click', () => {
+    showingAllFrequencies = 1;
     barsRow
       .transition()
         .style('height', barCellHeight + 'px')
-        
+
     bars
       .transition()
         .style('height', (d) =>  barHeightScale(d[1]) + 'px')
