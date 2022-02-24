@@ -18,18 +18,21 @@ section#main{
 }
 
 #freqChart {
-    padding-bottom: 10px;
-    margin-bottom: 10px;
     width: 100%;
     overflow: auto; 
   }
-#letterBars, #letterMarkers {
+#letterBars, #letterMarkers, #letterChecks {
     display: flex; 
     align-items: flex-end; 
   }
 #letterBars {
     height: 40px;
   }
+
+#letterChecks span{
+    border:none;
+    font-family: 'Mansalva', cursive;
+}
 #freqChart span.letter {
     --letter-font-size: clamp(1.2rem, 1.2vw, 2rem);
 } 

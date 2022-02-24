@@ -2,6 +2,7 @@ import {colors} from './functions.js';
 
 const barsRow = d3.select('#letterBars')
 const lettersRow = d3.select('#letterMarkers')
+const letterChecksRow = d3.select('#letterChecks')
 
 const showAllButton = d3.select('#showAllLetterFreq')
 const resetButton = d3.select('#reset')
@@ -10,7 +11,7 @@ const reorderButton = d3.select('#reorder')
 let wordSetName = 'common';
 let showingAllFrequencies = 0; 
 const barCellHeight = 100;
-let curData, letterOrder, top5letters, letterCountDomain, barHeightScale, colorScale, curOrder, bars, letters;
+let curData, letterOrder, top5letters, letterCountDomain, barHeightScale, colorScale, curOrder, bars, letters, letterChecks;
 
 d3.json("./data/letterFrequencies.json").then((data) => {
 
@@ -50,11 +51,20 @@ d3.json("./data/letterFrequencies.json").then((data) => {
       .attr('class','letter')
       .text(d=> d[0])
 
+    letterChecks = letterChecksRow.selectAll('span')
+      .data(curData.letterCounts).join('span')
+      .attr('class','letter')
+      .attr('id', d=> 'check-for-' + d[0])
+      .text("")
+
     bars
       .style('height','0px')
       .style('order',0)
       .style('background-color','none')
       .style('border','none')
+
+    letterChecks
+      .style('order',0) 
 
     letters
       .style('background-color', "white")
@@ -67,7 +77,12 @@ d3.json("./data/letterFrequencies.json").then((data) => {
             .style('background-color', top5letters.indexOf(d[0]) != -1 ?  colors.right : colors.wrong)
             .style('border-color', top5letters.indexOf(d[0]) != -1 ?  colors.right : colors.wrong)
             .style('color','white')
+               
+            d3.select('#check-for-' + d[0])
+                .text(d=> top5letters.indexOf(d[0]) != -1 ? '√' : 'x')
+                .style('color', d=> top5letters.indexOf(d[0]) != -1 ? colors.right : colors.wrong)
             }
+
       })
     
     reorderButton
@@ -109,11 +124,13 @@ d3.json("./data/letterFrequencies.json").then((data) => {
       curOrder = 'freq'
       bars.style('order', d=> letterOrder.indexOf(d[0]))
       letters.style('order', d=> letterOrder.indexOf(d[0]))
+      letterChecks.style('order', d=> letterOrder.indexOf(d[0]))
       reorderButton.text('Order alphabetically')
     } else { 
       curOrder = 'alpha'
       bars.style('order',  0 )
       letters.style('order', 0 )
+      letterChecks.style('order', 0)
       reorderButton.text('Order by frequency')
     }
   })
