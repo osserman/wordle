@@ -7,6 +7,11 @@ section#main{
 #intro{ 
     width: clamp(300px, 65%, 800px);
 }
+section#more-details{
+    border-top: none;
+    width: clamp(300px, calc(0.9*65%), 800px); /* to match intro this hack kind of works. container is 90% and intro is 65% of that */ 
+}
+
 #chart-wrapper {
     max-width: 100%;
     min-height: auto;

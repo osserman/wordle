@@ -2,8 +2,8 @@
 
 #chart-wrapper { 
     max-height: calc(100vh - var(--header-height));
-    width:  400px;
-    min-width: 400px;
+    width:  375px;
+    min-width: 375px;
     max-width: 100%;
     position: relative;
     height: 520px;
@@ -15,11 +15,8 @@
     left:0;
     right:0;
     margin: 0 auto;
-
-    /* width: 100%;
-    aspect-ratio: 1;*/
-    min-width: 400px;
-    min-height: 400px;
+    min-width: 375px;
+    min-height: 375px; /* this doesn't work with width is larger than this -- going to try setting in js. */ 
     position: absolute;
     bottom: -60px;
     border-radius: 50%;

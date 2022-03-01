@@ -55,6 +55,31 @@ header h1 {
     font-size: 4rem;
     font-family: 'Redressed', cursive;
 }
+nav { 
+    position: absolute;
+    top: 20px;
+    right: 20px; 
+    display: flex; 
+    gap: 10px;
+
+}
+nav button {
+    background-color: rgb(var(--color-right));
+    font-weight: bold;
+    padding:10px;
+    border-radius: 4px;
+    font-size: 1.25rem;
+    cursor: pointer;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-transform: uppercase;
+    color: white;
+}
+nav button#more {
+    /*background-color: var(--color-somewhere);*/
+}
 ol,ul {
     margin-left: 2rem;
 }
@@ -152,6 +177,15 @@ section#more-details{
     section#more-details {
         border-top: none;
         padding-top: 15px;
+    }
+    nav {
+        bottom: 0px;
+        background-color: white;
+        opacity: 0.95;
+        height: fit-content;
+        position: sticky;
+        justify-content: center;
+        padding: 10px;
     }
 
 }

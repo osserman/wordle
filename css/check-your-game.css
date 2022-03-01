@@ -1,0 +1,38 @@
+/* inheriting a bunch from word-winnowing.css */ 
+#controls input{
+    width: 7ch;
+    padding: 4px;
+    font-size: 1.3rem;
+}    
+
+#controls label {
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    width: 6.5rem;
+    text-align: right;
+}
+
+#controls button {
+    font-size: 1.1rem;
+}
+
+#controls>div { 
+    display:flex;
+    align-items: center;
+    gap: 10px;
+}
+
+@media (max-width: 600px) {
+
+    #controls{
+        flex-direction: column;
+        justify-content: space-between;
+        gap: 3px;
+        margin-top: 30px;
+    }
+    #chart-wrapper { 
+        width: 100%;
+    }
+
+}

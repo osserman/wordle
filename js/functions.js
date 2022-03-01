@@ -158,4 +158,4 @@ function playFullGame(
           wordsLeftByRound:wordsLeftByRound, wordsLeft: wordsLeft}
   }
 
-export {colors, randomAnswer, wordSim, wordComp, getSimWords, playFullGame};
+export {colors, randomAnswer, Knowledge, learnFromGuess, checkWordAgainstKnowledge, filterWords, wordSim, wordComp, getSimWords, playFullGame};
