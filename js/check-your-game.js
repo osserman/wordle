@@ -16,6 +16,12 @@ const words = d3.select('#words')
 const wordsLeftCount = d3.select('#words-left')
 const wordsElimCount = d3.select('#words-eliminated')
 
+function mobileScrollToGuess(){
+    if(window.matchMedia("(max-width: 600px)").matches) {
+        d3.select("#guess-input-label").node().scrollIntoView(true);
+    }
+}
+
 let actualAnswer, curGuess; 
 let circleWidth = d3.select('.word-circle#background').node().clientWidth;
 d3.selectAll('.word-circle').style('min-height',circleWidth + 'px');
@@ -57,6 +63,7 @@ d3.json("./data/wordSets.json").then((data) => {
     // disable first guess click until actual answer is set. 
     // when actual answer button submit -- 
         d3.select('#submit-actual').on('click', function() {
+            mobileScrollToGuess()
             let answerSubmission = d3.select('#actual').property('value').toLowerCase()
             if(actualAnswer!= answerSubmission & answerSubmission.split('').length == 5 ) {
                 if(!answerSubmission.match(/^[a-zA-Z]+$/)){
@@ -70,7 +77,7 @@ d3.json("./data/wordSets.json").then((data) => {
             }
         })  
         d3.select('#submit-guess').on('click', function() {
-            
+            mobileScrollToGuess()
             let curGuessSubmission = d3.select('#guess').property('value').toLowerCase()
             console.log(d3.select('#guess').property('value'))
             if(curGuessSubmission.split('').length == 5 ) {

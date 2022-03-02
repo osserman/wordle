@@ -1,7 +1,7 @@
 
 
 #chart-wrapper { 
-    max-height: calc(100vh - var(--header-height));
+    max-height: max(480px, calc(100vh - var(--header-height)));
     width:  375px;
     min-width: 375px;
     max-width: 100%;
