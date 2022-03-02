@@ -40,10 +40,6 @@ details p {
     margin-top: 15px;
 }
 
-#more-explorations {
-    padding: 15px 0px 30px;
-}
-
 header { 
     text-align: center;
     background-color: white;
@@ -77,9 +73,7 @@ nav button {
     text-transform: uppercase;
     color: white;
 }
-nav button#more {
-    /*background-color: var(--color-somewhere);*/
-}
+
 ol,ul {
     margin-left: 2rem;
 }
@@ -157,6 +151,45 @@ section#more-details{
     font-family: 'Clear Sans', 'Helvetica Neue', Arial, sans-serif
 }
 
+#modals aside {
+    background-color: white;
+    position: fixed; 
+    top: 5rem;
+    right: min(20px, 2.5%);
+    width: min(400px, 95%);
+    height: fit-content;
+    max-height: 60vh;
+    overflow-y: auto;
+    padding: 40px;
+    border-radius: 6px;
+    box-shadow: 0px 0px 10px var(--color-wrong);
+
+}
+#modals aside div {
+    margin-bottom:8px;
+}
+#modals aside#more-modal {
+    visibility: hidden;
+}
+
+#modals aside#share-modal {
+    visibility: hidden;
+}
+
+#modals button.close-modal {
+    border: none;
+    border-radius: 50%;
+    height: 1.5rem;
+    width: 1.5rem;
+    font-size: 1rem;
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 @media (max-width: 600px) {
     * {
         --letter-font-size: 1.5rem;
@@ -186,6 +219,11 @@ section#more-details{
         position: sticky;
         justify-content: center;
         padding: 10px;
+        box-shadow: 0px 0px 10px var(--color-wrong);
     }
-
+    #modals aside {
+        right: 0;
+        left:0;
+        margin: auto;
+    }
 }
