@@ -18,6 +18,12 @@ const words = d3.select('#words')
 const wordsLeftCount = d3.select('#words-left')
 const wordsElimCount = d3.select('#words-eliminated')
 
+function mobileScrollToButtons(){
+    if(window.matchMedia("(max-width: 600px)").matches) {
+        d3.select("#controls").node().scrollIntoView(true);
+    }
+}
+
 let circleWidth = d3.select('.word-circle#background').node().clientWidth;
 d3.selectAll('.word-circle').style('min-height',circleWidth + 'px');
 
@@ -67,6 +73,8 @@ d3.json("./data/wordSets.json").then((data) => {
         
         let guessCount = 0; 
         nextWord.on('click', () => {
+            mobileScrollToButtons()
+
             const col = wordComp(gameResults.guesses[guessCount], gameResults.actualWord)
                 console.log('guessCount5 or', guessCount, gameResults.guesses[guessCount] == gameResults.actualWord )
 
