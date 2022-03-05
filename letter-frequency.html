@@ -39,13 +39,13 @@
         </section>
     </section>
     <section id='more-details'>
-        <p>Note: The letter frequencies here are not representative of the letter frequencies in actual wordle answers.</p>
+        <p>Note: The letter frequencies here are not representative of the letter frequencies in actual Wordle answers.</p>
         <details>
-            <summary>A note on the word sets</summary>
+            <summary>A note on words included for this page</summary>
             <p>There are three different sets of words I considered using. </p>
             <ol>
                 <li>Wordle's <strong>actual</strong> answers. This is the set of 2315 words that Wordle selects their answers from.</li>
-                <li><strong>Common</strong> 5-letter English words. These are the 4561 most common 5-letter words from the <a href="https://pypi.org/project/wordfreq/" target="_blank">WordFreq</a> dataset that are also considered valid entries by Wordle. The cutoff of 4561 words was choosen because it's the number of words which includes 95% of the Wordle's actual answers. Beyond that words get pretty obscure.</li>
+                <li><strong>Common</strong> 5-letter words. These are the 4561 most common 5-letter words from the <a href="https://pypi.org/project/wordfreq/" target="_blank">WordFreq</a> dataset that are also considered valid entries by Wordle. The cutoff of 4561 words was chosen because it's the number of words which includes 95% of Wordle's actual answers. Beyond that words get pretty obscure.</li>
                 <li><strong>All</strong> Wordle words. This set includes all 12972 5-letter words that Wordle accepts as a guess, most of which are really quite obscure.</li>
             </ol>
             <p>This page defaults to "Common" words, because using Wordle's actual answers is kind of cheating, and because using all 13K 5-letter words includes a bunch of words that only scrabble fanatics know about. </p>
@@ -61,24 +61,27 @@
         </button>
     </nav>
     <section id='modals'>
-        <aside id='more-modal'><h2>More Explorations</h2>
+        <aside id='more-modal'><h3>More Explorations</h3>
             <ul>
-                <li><a href='check-your-game.html'>Check your game</a></li>
                 <li><a href='word-winnowing.html'>Word Winnowing</a></li> 
-                <li><a href='word-similarity.html'>Word Similarity</a></li>
+                <li><a href='check-your-game.html'>Check your game</a></li>
                 <li><a href='letter-frequency.html'>Letter Frequencies</a></li>
-                  <!--  <li><a href='#'>Simulations</a></li>--> 
-            </ul>   
+                <li><a href='word-similarity.html'>Word Similarity</a></li>
+                <li><a href='win-percents.html'>Win Percentages</a></li>
+            </ul>
+            <h3>More about this page</h3>
+            <p>Hi, I'm Stephen. I'm a data scientist and data visualization developer. Playing Wordle made me curious... so I started exploring.</p>
+            <p>Feel free to share any comments, feedback, or questions via <a href='https://forms.gle/sSV6D68sPZHbtej3A' target="_blank">this google form</a>.
+            </p>
             <button class='close-modal'>X</button>
         </aside>
         <aside id='share-modal'>
-            <h2>Glad You Enjoyed the Site!</h2>
+            <h3>Glad You Enjoyed the Site!</h3>
             <div>URL: <span id='url'>bit.ly/ExploringWordle</span></div>
             <button id='copy-url'>COPY URL</button>
             <span id='share-copy-result'></span>
             <button class='close-modal'>X</button>
         </aside>
-
     </section>
 
 </body>

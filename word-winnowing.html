@@ -22,8 +22,8 @@
         <section id = 'intro'>
             <h2>Word Winnowing</h2>
             <p>You know that feeling in Wordle? When it goes from "it could be anything!" to "I can't think of anything it could be!" I was curious to see how that happens.</p>
-            <p id='description'>Here's a game of Wordle that was randomly generated when you opened this page. The answer and all the guesses were selected from a set of English words around as common as actual Wordle answers.</p>
-            <p>As you go through the game the number of possible answers remaining is shown by the size of the <span class='green'>green</span> circle, and the number of words you've elimated is shown by the <span class='orange'>orange</span> area around the green circle (only visible once you click the button below to get started). </p>
+            <p id='description'>Here's a game of Wordle that was randomly generated when you opened this page. The answer is an actual Wordle answer, and all the guesses were selected from a set of all English words around as common as actual Wordle answers.</p>
+            <p>As you go through the game the number of possible answers remaining is shown by the size of the <span class='green'>green</span> circle, and the number of words you've eliminated is shown by the <span class='orange'>orange</span> area around the green circle (only visible once you click the button below to get started). </p>
 
             <section id = 'controls'>
                 <button id='reveal-guess'>GET STARTED</button>
@@ -47,19 +47,19 @@
     <section id='more-details'>
         <details>
             <summary>Word selection process</summary>
-            <p>In these games, each guess is chosen randomly from all the possible remaining words that meet the criteria already learned (i.e. letters excluded, letters included and letter position/non-position).</p>
+            <p>In these games, each guess is chosen randomly from all the possible remaining words that meet the criteria already learned (i.e. letters excluded, letters included, letter position/non-position, etc).</p>
             <p>I'm not saying this is the optimal approach to playing Wordle, but an interesting one to look at none the less.</p>
         </details>
 
         <details>
-            <summary>A note on the set of words being considered</summary>
+            <summary>A note on words included for this page</summary>
             <p>There are three different sets of words I considered using. </p>
             <ol>
                 <li>Wordle's <strong>actual</strong> answers. This is the set of 2315 words that Wordle selects their answers from.</li>
-                <li><strong>Common</strong> 5-letter English words. These are the 4561 most common 5-letter words from the <a href="https://pypi.org/project/wordfreq/" target="_blank">WordFreq</a> dataset that are also considered valid entries by Wordle. The cutoff of 4561 words was choosen because it's the number of words which includes 95% of the Wordle's actual answers. Beyond that words get pretty obscure.</li>
+                <li><strong>Common</strong> 5-letter words. These are the 4561 most common 5-letter words from the <a href="https://pypi.org/project/wordfreq/" target="_blank">WordFreq</a> dataset that are also considered valid entries by Wordle. The cutoff of 4561 words was chosen because it's the number of words which includes 95% of Wordle's actual answers. Beyond that words get pretty obscure.</li>
                 <li><strong>All</strong> Wordle words. This set includes all 12972 5-letter words that Wordle accepts as a guess, most of which are really quite obscure.</li>
             </ol>
-            <p>This page defaults to "Common" words, because using Wordle's actual answers is kind of cheating, and because using all 13K 5-letter words includes a bunch of words that only scrabble fanatics know about. </p>
+            <p>This page defaults to Wordle's actual answers for the answers, but to "common" words for the set of guesses, because using Wordle's actual answers is kind of cheating, and because using all 13K 5-letter words includes a bunch of words that mostly only scrabble fanatics know about. </p>
         </details>
     </section>
     <nav>
@@ -72,18 +72,23 @@
         </button>
     </nav>
     <section id='modals'>
-        <aside id='more-modal'><h2>More Explorations</h2>
+        <aside id='more-modal'>
+            <h3>More Explorations</h3>
             <ul>
-                <li><a href='check-your-game.html'>Check your game</a></li>
                 <li><a href='word-winnowing.html'>Word Winnowing</a></li> 
-                <li><a href='word-similarity.html'>Word Similarity</a></li>
+                <li><a href='check-your-game.html'>Check your game</a></li>
                 <li><a href='letter-frequency.html'>Letter Frequencies</a></li>
-                  <!--  <li><a href='#'>Simulations</a></li>--> 
+                <li><a href='word-similarity.html'>Word Similarity</a></li>
+                <li><a href='win-percents.html'>Win Percentages</a></li>
             </ul>   
+            <h3>More about this page</h3>
+            <p>Hi, I'm Stephen. I'm a data scientist and data visualization developer. Playing Wordle made me curious... so I started exploring.</p>
+            <p>Feel free to share any comments, feedback, or questions via <a href='https://forms.gle/sSV6D68sPZHbtej3A' target="_blank">this google form</a>.
+            </p>
             <button class='close-modal'>X</button>
         </aside>
         <aside id='share-modal'>
-            <h2>Glad You Enjoyed the Site!</h2>
+            <h3>Glad You Enjoyed the Site!</h3>
             <div>URL: <span id='url'>bit.ly/ExploringWordle</span></div>
             <button id='copy-url'>COPY URL</button>
             <span id='share-copy-result'></span>

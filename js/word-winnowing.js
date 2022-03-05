@@ -34,7 +34,7 @@ d3.json("./data/wordSets.json").then((data) => {
     function game() { 
         let wordSet = wordSets.get('common').words
 //    console.log(wordSets.get('common').words)
-        let gameResults = playFullGame('random',randomAnswer(wordSet),wordSet);
+        let gameResults = playFullGame('random',randomAnswer(wordSets.get('actual').words),wordSet);
         
         let circleScale = d3.scaleSqrt()
             .domain([0, wordSet.length])

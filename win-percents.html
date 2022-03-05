@@ -9,62 +9,65 @@
     <link href="https://fonts.googleapis.com/css2?family=Redressed&family=Roboto+Condensed:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 
     <link href='css/styles.css' rel='stylesheet' />
-    <link href='css/word-winnowing.css' rel='stylesheet'/>
-    <link href='css/check-your-game.css' rel='stylesheet'/>
-    <title>Check Your Game</title>
+    <link href='css/win-percents.css' rel='stylesheet'/> 
+    <title>Win Percentages</title>
 </head>
 
 <body>
     <header>
         <h1>Exploring Wordle</h1>
-        
     </header>
     <section id = 'main'>
 
         <section id = 'intro'>
-            <h2>Check Your Game</h2>
-            <p>Curious just how many possible answers were left after each guess in your Wordle game?</p>
-            <p>As you go through your game the number of possible answers remaining is shown by the size of the <span class='green'>green</span> circle, and the number of words you've eliminated is shown by the <span class='orange'>orange</span> area around the green circle (only visible once you submit your first guess below). </p>
-            <!-- hopefully will add this feature sometime <p>Once you narrow down to 100 answers, you can also scan through those below.</p> -->
-
-            <section id = 'controls'>
-                <div>
-                    <label>Answer</label>
-                    <input id='actual'>
-                    <button id='submit-actual'>SUBMIT</button></div>
-                <div>
-                    <label id='guess-input-label'>Guess #1</label>
-                    <input id='guess'>
-                    <button id='submit-guess'>SUBMIT</button>
-                </div>
-            </section>
-
+            <h2>Win Percentages</h2>
+            <p>While strategy may help you win Wordle earlier, we can win most of the time by just taking an approach of always guessing any random word that hasn't been eliminated.</p>
+            <p>Here are the results from a 10,000-game simulation using that method.</p> 
+            <p>Click the buttons below to see the results for runs of the simulation where the actual answer was a "high similarity" word (one with lots of other words similar to it), or a "low similarity" word.</p>
+        <section id = 'sim-selection'>
+                <button value= 'all'>ALL ANSWERS</button>
+                <button value= 'lowSim'>LOW SIMILARITY ANSWER</button>
+                <button value= 'highSim'>HIGH SIMILARITY ANSWER</button>
+        </section>
         </section>
         <section id = 'chart-wrapper'>
-            <div class = 'word-circle' id = 'background'></div>
-            <div id='words-wrapper'>
-                <div id='actual-word'>&nbsp;</div>
-                <div id='words'></div>
+            <div>Statistics</div>
+            <div id='stats'>
+                <div class='stat-container'><div class='stat-count' id='played'>10K</div><div class='stat-label'>Played</div></div>
+                <div class='stat-container'><div class='stat-count' id='win-pct'>97%</div><div class='stat-label'>Won</div></div>
             </div>
-            <div class = 'word-circle'  id = 'foreground'></div>
-            <div class='circle-annotation' id='words-left'></div>
-            <div class='circle-annotation' id='words-eliminated'></div>
-            </div>
-
+            <div>Guess Distribution</div>
+            <div id='guess-distrib'></div>
         </section>
-    </section>    
+    </section> 
     <section id='more-details'>
         <details>
-            <summary>A note on words included for this page</summary>
+            <summary>Similarity Scoring</summary>
+
+            <p>Like in the <a href="word-similarity.html">Word Similarity</a> exploration, each word is first compared to all other words. A similarity between two words is scored based on 1 point given for each correct letter in the correct position and 0.75 points given for a correct letter in the wrong position.  It's a bit arbitrary, but here's what that looks like: 
+                <ol class='no-list-style'>
+                    <li>🟩🟩🟩🟨🟨 = 4.5</li>
+                    <li>🟩🟩🟩🟩⬜ = 4</li>
+                    <li>🟩🟩🟩🟨⬜ = 3.75</li>
+                    <li>🟨🟨🟨🟨🟨 = 3.75</li>
+                    <li>🟩🟩🟨🟨⬜ = 3.5</li>
+                    <li>🟩🟩🟩⬜⬜ = 3</li>
+                    <li>🟨🟨🟨🟨⬜ = 3</li>
+                </ol>
+            <p>Then an aggregated "word similarity score" is assigned to each word -- allotting 1.25 points for each other word that has a similarity score of 4 or more, and 0.25 for each word that has a similarity score of 3.5 or 3.75.</p>
+            <p>As an example RISEN's aggregate "word similarity score" is 19.75. It has 9 words with a similarity score of 4 or higher, and another 34 words with a similarity score of 3.5 to 3.75.  9 words * 1.25 points + 34 words * 0.25 points = 19.75.</p>
+            <p>For the chart above, I set thresholds where an answer was included as a "HIGH SIMILARITY ANSWER" if it had an aggregate "word similarity score" at least as high as the 90th percentile score (which was 17.5), and an answer was included as a "LOW SIMILARITY ANSWER" if it had an aggregate "word similarity score" not higher than the 10th percentile score (which was 2.75) </p>
+        </details>
+        <details>
+            <summary>A note on words used on this page</summary>
             <p>There are three different sets of words I considered using. </p>
             <ol>
                 <li>Wordle's <strong>actual</strong> answers. This is the set of 2315 words that Wordle selects their answers from.</li>
                 <li><strong>Common</strong> 5-letter words. These are the 4561 most common 5-letter words from the <a href="https://pypi.org/project/wordfreq/" target="_blank">WordFreq</a> dataset that are also considered valid entries by Wordle. The cutoff of 4561 words was chosen because it's the number of words which includes 95% of Wordle's actual answers. Beyond that words get pretty obscure.</li>
                 <li><strong>All</strong> Wordle words. This set includes all 12972 5-letter words that Wordle accepts as a guess, most of which are really quite obscure.</li>
             </ol>
-           <p>This page lets you set any word (actual or made-up) as the answer and as your guesses, but for the pool of possible answers left it uses the "Common" words set, because using Wordle's actual answers overly narrows things, and because using all 13K 5-letter words includes a bunch of words that basically only scrabble fanatics know about. </p>
+            <p>The simulation on this page used Wordle's actual answers for the answers, but "common" words for the set of guesses, because using Wordle's actual answers is kind of cheating, and because using all 13K 5-letter words includes a bunch of words that mostly only scrabble fanatics know about. </p>
         </details>
-          
     </section>
     <nav>
         <button id='more' tabindex="1">MORE
@@ -103,7 +106,8 @@
 </body>
 <script src="https://use.fontawesome.com/2ff120d54e.js"></script>
 <script type='text/javascript' src='https://unpkg.com/d3@7.2.0/dist/d3.min.js'></script>
-<script type='module' src='js/check-your-game.js'></script>
+<script type='module' src='js/win-percents.js'></script> 
 <script type='text/javascript' src='js/modals.js'></script>
+
 
 </html>

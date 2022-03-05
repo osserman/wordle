@@ -29,8 +29,6 @@ function wordSim(guess, actual, returnDetail = 0) {
     }
   }
   
- // function randomAnswer(wordSet) {return d3.shuffle(wordSet.slice())[0]}
-
   function wordComp(guess = 'twice', actual = 'teals') {
     const a1 = guess.split(''); 
     const a2 = actual.split(''); 
@@ -68,50 +66,67 @@ function wordSim(guess, actual, returnDetail = 0) {
 }
 
 
-function Knowledge(lettersDiscovered = [], lettersSomewhereElse = [], lettersEliminated = {}) {
+function Knowledge(lettersDiscovered = [], lettersSomewhereElse = [], lettersEliminated = {}, lettersAtLeastNTimes = {}, lettersAtMostNTimes = {} ) {
     this.lettersDiscovered =  lettersDiscovered,
     this.lettersSomewhereElse = lettersSomewhereElse,
-    this.lettersEliminated = lettersEliminated
-  }
+    this.lettersEliminated = lettersEliminated,
+    this.lettersAtLeastNTimes = lettersAtLeastNTimes,
+    this.lettersAtMostNTimes = lettersAtMostNTimes
+}
 
 function checkWordAgainstKnowledge(word, knowledge, qaMode = false){
-    let wordArray = word.split('')
-    if (qaMode) {
-      console.log(
-        'discovered letter out of place: ', 
-          d3.max(knowledge.lettersDiscovered.map( d=> d.letter != wordArray[d.position])),
-        'letter not in _ position is in that position, or missing', 
-          d3.max(knowledge.lettersSomewhereElse.map( d=> d.letter == wordArray[d.notPosition] || wordArray.indexOf(d.letter) == -1)), 
-        'word has eliminated letter', 
-          d3.max(wordArray.map( d=> knowledge.lettersEliminated[d]))
+let wordArray = word.split('')
+if (qaMode) {
+    console.log(
+    'discovered letter out of place: ', 
+        d3.max(knowledge.lettersDiscovered.map( d=> d.letter != wordArray[d.position])),
+    'letter not in _ position is in that position, or missing', 
+        d3.max(knowledge.lettersSomewhereElse.map( d=> d.letter == wordArray[d.notPosition] || wordArray.indexOf(d.letter) == -1)), 
+    'word has eliminated letter', 
+        d3.max(wordArray.map( d=> knowledge.lettersEliminated[d])),
+    'letter counts mismatch', wordArray.reduce((acc, e) => acc.set(e, (acc.get(e) || 0) + 1), new Map()), d3.max(Array.from(wordArray.reduce((acc, e) => acc.set(e, (acc.get(e) || 0) + 1), new Map()))
+            .map(d => d[1] < knowledge.lettersAtLeastNTimes[d[0]] || d[1] > knowledge.lettersAtMostNTimes[d[0]]))
+    )
+}
+return !(
+    d3.max(knowledge.lettersDiscovered.map( d=> d.letter != wordArray[d.position])) // discovered letter not in right position 
+    || d3.max(knowledge.lettersSomewhereElse.map( d=> d.letter == wordArray[d.notPosition] || wordArray.indexOf(d.letter) == -1)) // letter not in _ position is in that position, or missing altogether
+    || d3.max(wordArray.map( d=> knowledge.lettersEliminated[d])) // word has elimatited letter
+    || d3.max(
+        Array.from(wordArray.reduce((acc, e) => acc.set(e, (acc.get(e) || 0) + 1), new Map()))
+            .map(d => d[1] < knowledge.lettersAtLeastNTimes[d[0]] || d[1] > knowledge.lettersAtMostNTimes[d[0]])
         )
-    }
-    return !(
-        d3.max(knowledge.lettersDiscovered.map( d=> d.letter != wordArray[d.position])) // discovered letter not in right position 
-      || d3.max(knowledge.lettersSomewhereElse.map( d=> d.letter == wordArray[d.notPosition] || wordArray.indexOf(d.letter) == -1)) // letter not in _ position is in that position, or missing altogether
-      || d3.max(wordArray.map( d=> knowledge.lettersEliminated[d])) // word has elimatited letter
-      )
-  
-  }
+    )
+}
 
-function learnFromGuess(guess, actual, knowledge) {
-    const actualWordArray = actual.split('')
-    guess.split('').forEach((l,i) => {
-        if(l == actualWordArray[i]){    // push discovered letter with position
-          knowledge.lettersDiscovered.push({letter: l, position: i})
-        } else if(actualWordArray.indexOf(l) != -1) {// when right letters in wrong spot push lettersSomewhereElse 
-          knowledge.lettersSomewhereElse.push({letter: l, notPosition: i})
-        } else { // when letter not in word push to elimated
-          knowledge.lettersEliminated[l] = true;
-        }
-      })
-    
-    return knowledge
-  }
-  
+function learnFromGuess(guess, actual, knowledge) {                   
+const actualWordArray = actual.split('')
+guess.split('').forEach((l,i) => {
+    if(l == actualWordArray[i]){    // push discovered letter with position
+        knowledge.lettersDiscovered.push({letter: l, position: i})
+    } else if(actualWordArray.indexOf(l) != -1) {// when right letters in wrong spot push lettersSomewhereElse 
+        knowledge.lettersSomewhereElse.push({letter: l, notPosition: i})
+    } else { // when letter not in word push to elimated
+        knowledge.lettersEliminated[l] = true;
+    }
+    })
+
+const guessLetterCounts = guess.split('').reduce((acc, e) => acc.set(e, (acc.get(e) || 0) + 1), new Map());
+const actualLetterCounts = actual.split('').reduce((acc, e) => acc.set(e, (acc.get(e) || 0) + 1), new Map());
+guessLetterCounts.forEach( (count, letter)=> {
+    if(count > actualLetterCounts.get(letter)){
+    knowledge.lettersAtMostNTimes[letter] = actualLetterCounts.get(letter);
+    } else if(count <= actualLetterCounts.get(letter)){
+    knowledge.lettersAtLeastNTimes[letter] = count; 
+    }
+})
+
+return knowledge
+}
+
 function filterWords (wordList, knowledge){
-    return wordList.filter((word) => checkWordAgainstKnowledge(word, knowledge) )
-  }
+return wordList.filter((word) => checkWordAgainstKnowledge(word, knowledge) )
+}
 
   // this will currently only work with wordSetStats already loaded. 
 function playFullGame(

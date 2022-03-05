@@ -19,20 +19,37 @@
     </header>
     <section id = 'main'>
         <section>
-            <p>Now that Wordle has been bought for millions of dollars and it's moment may be passing, seemed time to look back.</p>
-            <p>These are some explorations. More may be coming.</p>
+            <p>Now that Wordle has been bought for millions of dollars and its moment may be passing, seemed time to look back.</p>
+            <p>These are some explorations.</p>
             <ul>
-                <!--<li><a href=''>Check your game</a></li>
-                    <li><a href='#'>Simulations</a></li>--> 
-                <li><a href='word-winnowing.html'>Word Winnowing</a></li>
-                <li><a href='word-similarity.html'>Word Similarity</a></li>
+                <li><a href='word-winnowing.html'>Word Winnowing</a></li> 
+                <li><a href='check-your-game.html'>Check your game</a></li>
                 <li><a href='letter-frequency.html'>Letter Frequencies</a></li>
-            </ul>
+                <li><a href='word-similarity.html'>Word Similarity</a></li>
+                <li><a href='win-percents.html'>Win Percentages</a></li>
+            </ul>   
         </section>
+    </section>
+    <nav>
+        <button id='share'>SHARE
+          <svg height="24" viewBox="0 0 24 24" width="24">
+              <path fill="white" d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92c0-1.61-1.31-2.92-2.92-2.92zM18 4c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zM6 13c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm12 7.02c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1z"></path>
+          </svg>
+        </button>
+    </nav>
+    <section id='modals'>
+        <aside id='share-modal'>
+            <h3>Glad You Enjoyed the Site!</h3>
+            <div>URL: <span id='url'>bit.ly/ExploringWordle</span></div>
+            <button id='copy-url'>COPY URL</button>
+            <span id='share-copy-result'></span>
+            <button class='close-modal'>X</button>
+        </aside>
+
     </section>
 </body>
 <script src="https://use.fontawesome.com/2ff120d54e.js"></script>
 <script type='text/javascript' src='https://unpkg.com/d3@7.2.0/dist/d3.min.js'></script>
-<script type='module' src='js/word-winnowing.js'></script>
+<script type='text/javascript' src='js/modals.js'></script>
 
 </html>

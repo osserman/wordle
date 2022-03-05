@@ -89,8 +89,8 @@ d3.json("./data/wordSets.json").then((data) => {
                     gameKnowledge = learnFromGuess(curGuess, actualAnswer, gameKnowledge);
                     wordsLeft = filterWords(wordsLeft, gameKnowledge);
                     
-                    console.log('curGuess, actualWord',curGuess, actualAnswer)
-
+                    console.log('curGuess, actualWord, wordsLeft',curGuess, actualAnswer, wordsLeft)
+                    
                     let col = wordComp(curGuess, actualAnswer);
                     console.log('col',col)
                     d3.select('#guess-' + (guessNumber-1)).selectAll('span').data(curGuess.split('')).join('span')
