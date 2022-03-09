@@ -15,6 +15,17 @@ html {
     background-color: rgba(var(--color-right),0.2);
 }
 
+.visually-hidden {
+    position: absolute;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    width: 1px;
+    margin: -1px;
+    padding: 0;
+    border: 0;
+  }
+  
 a { 
     color: #151515;
 }
@@ -201,6 +212,18 @@ section#more-details{
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+#results-table {
+    border-collapse: collapse;
+}
+
+#results-table td,th {
+    padding: 5px 12px;
+}
+
+#results-table th {
+    border-bottom: 1px solid #151515;
 }
 
 @media (max-width: 600px) {

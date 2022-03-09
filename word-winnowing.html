@@ -26,14 +26,15 @@
             <p>As you go through the game the number of possible answers remaining is shown by the size of the <span class='green'>green</span> circle, and the number of words you've eliminated is shown by the <span class='orange'>orange</span> area around the green circle (only visible once you click the button below to get started). </p>
 
             <section id = 'controls'>
+                <div class='visually-hidden'>Results in table form below</div>
                 <button id='reveal-guess'>GET STARTED</button>
-                <button id='reset-game'>NEW GAME</button>
+                <button class='reset-game'>NEW GAME</button>
             </section>
 
         </section>
         <section id = 'chart-wrapper'>
             <div class = 'word-circle' id = 'background'></div>
-            <div id='words-wrapper'>
+            <div id='words-wrapper' aria-hidden="true">
                 <div id='actual-word'></div>
                 <div id='words'></div>
             </div>
@@ -60,6 +61,19 @@
                 <li><strong>All</strong> Wordle words. This set includes all 12972 5-letter words that Wordle accepts as a guess, most of which are really quite obscure.</li>
             </ol>
             <p>This page defaults to Wordle's actual answers for the answers, but to "common" words for the set of guesses, because using Wordle's actual answers is kind of cheating, and because using all 13K 5-letter words includes a bunch of words that mostly only scrabble fanatics know about. </p>
+        </details>
+        <details>
+            <summary>Table version of results</summary>
+            <p>Here is the display of the Wordle game currently displayed above, but in table form: </p>
+            <button class='reset-game'>NEW GAME</button>
+            <div id='actual-word-table'></div>
+
+            <table id='results-table'>
+                <thead>
+                    <tr><th>Round</th><th>Guess</th><th>Possible Words Remaining</th><th>Words Eliminated</th></tr>
+                </thead>
+                <tbody></tbody>
+            </table>
         </details>
     </section>
     <nav>

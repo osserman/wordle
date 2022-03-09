@@ -1,14 +1,16 @@
-import {colors, randomAnswer, wordSim, wordComp, playFullGame} from './functions.js';
+import {colors, randomAnswer, wordSim, wordComp, playFullGame, resultsTableRow} from './functions.js';
 
 const chartWrapper = d3.select('#chart-wrapper')
 
 const wordsWrapper = d3.select('#words-wrapper')
 
 const actualWord = d3.select('#actual-word')
-    .style('text-align','center')
+const actualWordInTable = d3.select('#actual-word-table')
+
+const resultsTableBody = d3.select('table#results-table').select('tbody')
 
 const nextWord = d3.select('#reveal-guess')
-const resetGame = d3.select('#reset-game')
+const resetGame = d3.selectAll('.reset-game')
 
 const words = d3.select('#words')
     .selectAll('div')
@@ -35,13 +37,18 @@ d3.json("./data/wordSets.json").then((data) => {
         let wordSet = wordSets.get('common').words
 //    console.log(wordSets.get('common').words)
         let gameResults = playFullGame('random',randomAnswer(wordSets.get('actual').words),wordSet);
-        
+
+        resultsTableBody.selectAll('tr').data(gameResults.guesses)
+            .join('tr')
+            .html((d,i)=> resultsTableRow([i+1, d.toUpperCase(), gameResults.wordsLeftByRound[i+1] || '', wordSet.length - (gameResults.wordsLeftByRound[i+1]) || '']))
+
         let circleScale = d3.scaleSqrt()
             .domain([0, wordSet.length])
             .range([0, 1]);
 
         actualWord.html("Actual Word: <b>" + gameResults.actualWord.toUpperCase() + "</b>")
-        
+        actualWordInTable.html("Actual Word: <b>" + gameResults.actualWord.toUpperCase() + "</b>")
+
         if (justStarting == 1){
             console.log('justStarting')
             justStarting = 0;

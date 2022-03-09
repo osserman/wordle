@@ -173,4 +173,18 @@ function playFullGame(
           wordsLeftByRound:wordsLeftByRound, wordsLeft: wordsLeft}
   }
 
-export {colors, randomAnswer, Knowledge, learnFromGuess, checkWordAgainstKnowledge, filterWords, wordSim, wordComp, getSimWords, playFullGame};
+  function resultsTableRow(data) { 
+    return data.map(d=> '<td>' + d + '</td>').join('')
+}
+
+export {colors, 
+    randomAnswer, 
+    Knowledge, 
+    learnFromGuess, 
+    checkWordAgainstKnowledge, 
+    filterWords, 
+    wordSim, 
+    wordComp, 
+    getSimWords, 
+    playFullGame,
+    resultsTableRow};

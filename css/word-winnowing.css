@@ -48,13 +48,21 @@
 }
 
 .green {
-    color: rgb(var(--color-right));
+    color: white;
     font-weight: bold;
+    text-transform: uppercase;
+    background-color: rgb(var(--color-right));
+    padding: 0 8px;
+    border-radius: 0.5rem;
 }
 
 .orange {
-    color: #f5793a;
+    color: white;
     font-weight: bold;
+    text-transform: uppercase;
+    background-color: hsl(20deg, 63%, 59.4%); /* same h and l but lower s than #f5793a; */ 
+    padding: 0 8px;
+    border-radius: 0.5rem;
 }
 
 #words-wrapper {

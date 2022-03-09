@@ -38,10 +38,14 @@ section#more-details{
     border:none;
     font-family: 'Mansalva', cursive;
 }
-#freqChart span.letter {
+#freqChart .letter {
     --letter-font-size: clamp(1.2rem, 1.2vw, 2rem);
 } 
 #freqChart #letterBars span {
     min-height: 0rem;
     border:none;
   }
+
+.letter-stats {
+    display: none;
+}

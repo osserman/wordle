@@ -19,6 +19,7 @@ d3.json("./data/letterFrequencies.json").then((data) => {
 
   function initialize(){ 
     showingAllFrequencies = 0;
+    d3.selectAll('.letter-stats').style('display','none')
 
     curData = wordSetStats.get(wordSetName);
 
@@ -46,10 +47,11 @@ d3.json("./data/letterFrequencies.json").then((data) => {
       .data(curData.letterCounts).join('span')
       .attr('class','letter')
 
-    letters = lettersRow.selectAll('span')
-      .data(curData.letterCounts).join('span')
+    letters = lettersRow.selectAll('button')
+      .data(curData.letterCounts).join('button')
       .attr('class','letter')
-      .text(d=> d[0])
+      //.text(d=> d[0])
+      .html(d=> d[0] + '<span class="visually-hidden letter-stats">"'+ d[0]  + '" appears ' + d[1] + ' times in the 4600 words. Of all the letters, its frequency is ranked number ' + letterOrder.indexOf(d[0]) + "</span>")
 
     letterChecks = letterChecksRow.selectAll('span')
       .data(curData.letterCounts).join('span')
@@ -71,16 +73,19 @@ d3.json("./data/letterFrequencies.json").then((data) => {
       .style('border-color','#d3d6da')
       .style('color', "black")
       .style('order',0)
+      .attr('tabindex',0)
       .on('click', function(event, d) {
         if (showingAllFrequencies == 0){
+            let isTop5 = top5letters.indexOf(d[0]) != -1; 
+            d3.select('#aria-announce').html('. "' + d[0].toUpperCase() + '" is' + (isTop5 ? '' : ' not') + " one of the top 5 most common letters")
             d3.select(this)
-            .style('background-color', top5letters.indexOf(d[0]) != -1 ?  colors.right : colors.wrong)
-            .style('border-color', top5letters.indexOf(d[0]) != -1 ?  colors.right : colors.wrong)
+            .style('background-color', isTop5 ?  colors.right : colors.wrong)
+            .style('border-color', isTop5 ?  colors.right : colors.wrong)
             .style('color','white')
                
             d3.select('#check-for-' + d[0])
-                .text(d=> top5letters.indexOf(d[0]) != -1 ? '√' : 'x')
-                .style('color', d=> top5letters.indexOf(d[0]) != -1 ? colors.right : colors.wrong)
+                .text(d=> isTop5 ? '√' : 'x')
+                .style('color', d=> isTop5 ? colors.right : colors.wrong)
             }
 
       })
@@ -98,6 +103,9 @@ d3.json("./data/letterFrequencies.json").then((data) => {
 
   showAllButton.on('click', () => {
     showingAllFrequencies = 1;
+    
+    d3.selectAll('.letter-stats').style('display','inline')
+
     barsRow
       .transition()
         .style('height', barCellHeight + 'px')
